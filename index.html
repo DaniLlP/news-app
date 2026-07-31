@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Premium news aggregation for Spain, Catalonia, Barcelona and international news" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="NEWS HUB" />
+    <meta property="og:title" content="NEWS HUB" />
+    <meta property="og:description" content="Premium news aggregation for Spain, Catalonia, Barcelona and international news" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/news-app/manifest.json" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%233B82F6' width='180' height='180'/><text x='90' y='100' font-size='80' fill='white' text-anchor='middle' dominant-baseline='middle'>📰</text></svg>" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <title>NEWS HUB - News from Spain, Catalonia & Barcelona</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/news-app/src/main.jsx"></script>
+    
+    <!-- Service worker registration for PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/news-app/sw.js').catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
