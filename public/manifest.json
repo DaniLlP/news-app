@@ -1,0 +1,75 @@
+{
+  "name": "NEWS HUB - Spain & Barcelona News",
+  "short_name": "NEWS HUB",
+  "description": "Premium news aggregation for Spain, Catalonia, Barcelona and international news",
+  "start_url": "/news-app/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "scope": "/news-app/",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%233B82F6' width='192' height='192'/><text x='96' y='108' font-size='90' fill='white' text-anchor='middle' dominant-baseline='middle'>📰</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%233B82F6' width='512' height='512'/><text x='256' y='288' font-size='240' fill='white' text-anchor='middle' dominant-baseline='middle'>📰</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["news"],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%233B82F6' width='540' height='720'/><text x='270' y='360' font-size='120' fill='white' text-anchor='middle' dominant-baseline='middle'>📰 NEWS HUB</text></svg>",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Breaking News",
+      "short_name": "Breaking",
+      "description": "Latest breaking news",
+      "url": "/news-app/?category=breaking",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%23EF4444' width='96' height='96'/><text x='48' y='54' font-size='40' fill='white' text-anchor='middle' dominant-baseline='middle'>🔴</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Barcelona News",
+      "short_name": "Barcelona",
+      "description": "News from Barcelona",
+      "url": "/news-app/?category=barcelona",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%23004B87' width='96' height='96'/><text x='48' y='54' font-size='40' fill='white' text-anchor='middle' dominant-baseline='middle'>🏙️</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Finance",
+      "short_name": "Finance",
+      "description": "Market news and data",
+      "url": "/news-app/?category=finance",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%2310B981' width='96' height='96'/><text x='48' y='54' font-size='40' fill='white' text-anchor='middle' dominant-baseline='middle'>📈</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
