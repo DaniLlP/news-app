@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,8 +13,8 @@
     <meta property="og:type" content="website" />
     
     <!-- Manifest for PWA -->
-    <link rel="manifest" href="/news-app/manifest.json" />
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%233B82F6' width='180' height='180'/><text x='90' y='100' font-size='80' fill='white' text-anchor='middle' dominant-baseline='middle'>📰</text></svg>" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%233B82F6' width='180' height='180'/><text x='90' y='100' font-size='80' fill='white' text-anchor='middle' dominant-baseline='middle'>ðŸ“°</text></svg>" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,13 +24,13 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/news-app/src/main.jsx"></script>
+    <script type="module" src="/src/main.jsx"></script>
     
     <!-- Service worker registration for PWA -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/news-app/sw.js').catch(err => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
             console.log('ServiceWorker registration failed: ', err);
           });
         });

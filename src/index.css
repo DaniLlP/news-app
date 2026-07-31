@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -30,7 +30,7 @@ body {
 
 /* Prose styling for article content */
 .prose {
-  @apply dark:prose-invert;
+  color: inherit;
 }
 
 .prose p {
