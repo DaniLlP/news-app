@@ -1,81 +1,81 @@
-import { mockArticles, marketData } from '../data/mockArticles';
+import { mockArticles, marketData, dailyBriefing } from "../data/mockArticles";
+import { pick } from "../translations/i18n";
 
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
-const BASE_URL = 'https://newsapi.org/v2';
-
-// Service for fetching news from various sources
-// Currently uses mock data, easily switchable to real API
+// Trending blends recency, views and discussion volume.
+const trendingScore = (a) => {
+  const ageHours = Math.max(
+    1,
+    (Date.now() - new Date(a.published).getTime()) / 3600000,
+  );
+  return (a.views + a.comments * 40) / Math.pow(ageHours, 0.6);
+};
 
 export const newsService = {
-  // Get all articles
-  getAllArticles: async () => {
-    try {
-      if (NEWS_API_KEY) {
-        const response = await fetch(`${BASE_URL}/everything?q=news&sortBy=publishedAt&language=en&apiKey=${NEWS_API_KEY}`);
-        const data = await response.json();
-        return data.articles || mockArticles;
-      }
-    } catch (error) {
-      console.warn('API error, using mock data:', error);
-    }
-    return mockArticles;
-  },
+  getAllArticles: async () =>
+    [...mockArticles].sort(
+      (a, b) => new Date(b.published) - new Date(a.published),
+    ),
 
-  // Get articles by category
-  getArticlesByCategory: async (category) => {
-    return mockArticles.filter(article => article.category === category);
-  },
+  getArticlesByCategory: async (category) =>
+    mockArticles
+      .filter((a) => a.category === category)
+      .sort((a, b) => new Date(b.published) - new Date(a.published)),
 
-  // Get featured article
-  getFeaturedArticle: async () => {
-    const featured = mockArticles.find(article => article.featured);
-    return featured || mockArticles[0];
-  },
+  getArticlesByRegion: async (region) =>
+    mockArticles
+      .filter((a) => a.region === region)
+      .sort((a, b) => new Date(b.published) - new Date(a.published)),
 
-  // Get trending articles
-  getTrendingArticles: async () => {
-    // In production, this would be based on actual trending metrics
-    return mockArticles.slice(0, 5);
-  },
+  getFeaturedArticle: async () =>
+    mockArticles.find((a) => a.featured) || mockArticles[0],
 
-  // Get most read articles
-  getMostRead: async () => {
-    // In production, would be based on actual read counts
-    return mockArticles.slice(0, 8);
-  },
+  getTrendingArticles: async (limit = 6) =>
+    [...mockArticles]
+      .sort((a, b) => trendingScore(b) - trendingScore(a))
+      .slice(0, limit),
 
-  // Search articles
-  searchArticles: async (query) => {
-    const lowercaseQuery = query.toLowerCase();
-    return mockArticles.filter(article =>
-      article.title.toLowerCase().includes(lowercaseQuery) ||
-      article.summary.toLowerCase().includes(lowercaseQuery) ||
-      article.content.toLowerCase().includes(lowercaseQuery)
+  getMostRead: async (limit = 8) =>
+    [...mockArticles].sort((a, b) => b.views - a.views).slice(0, limit),
+
+  // Top 10 by region; sortBy: 'popular' (views) | 'comments'
+  getTop10: async (region, sortBy = "popular") =>
+    mockArticles
+      .filter((a) => a.region === region)
+      .sort((a, b) =>
+        sortBy === "comments" ? b.comments - a.comments : b.views - a.views,
+      )
+      .slice(0, 10),
+
+  searchArticles: async (query, lang = "en") => {
+    const q = query.toLowerCase();
+    return mockArticles.filter(
+      (a) =>
+        pick(a.title, lang).toLowerCase().includes(q) ||
+        pick(a.summary, lang).toLowerCase().includes(q) ||
+        pick(a.content, lang).toLowerCase().includes(q) ||
+        a.source.toLowerCase().includes(q),
     );
   },
 
-  // Get article by ID
-  getArticleById: async (id) => {
-    return mockArticles.find(article => article.id === id);
+  getArticleById: async (id) => mockArticles.find((a) => a.id === id),
+
+  getRelatedArticles: async (articleId, category, region) => {
+    const related = mockArticles.filter(
+      (a) =>
+        a.id !== articleId && (a.category === category || a.region === region),
+    );
+    // Same category first, then same region, most recent first
+    related.sort((a, b) => {
+      const catDiff = (b.category === category) - (a.category === category);
+      if (catDiff !== 0) return catDiff;
+      return new Date(b.published) - new Date(a.published);
+    });
+    return related.slice(0, 3);
   },
 
-  // Get related articles
-  getRelatedArticles: async (articleId, category) => {
-    return mockArticles
-      .filter(article => article.id !== articleId && article.category === category)
-      .slice(0, 3);
-  },
+  getMarketData: async () => marketData,
 
-  // Get market data
-  getMarketData: async () => {
-    // In production, connect to financial APIs (Alpha Vantage, Polygon.io, Yahoo Finance)
-    return marketData;
-  },
-
-  // Get market data for specific symbols
-  getMarketDataBySymbol: async (symbol) => {
-    return marketData.find(item => item.symbol === symbol);
-  },
+  getDailyBriefing: async () => dailyBriefing,
 };
 
 export default newsService;

@@ -1,69 +1,51 @@
-import React from 'react';
-import { useTranslation } from '../translations/i18n';
+import React from "react";
+import { useTranslation } from "../translations/i18n";
 
-export default function Navigation({ 
-  activeCategory, 
-  onCategoryChange, 
+// Horizontally scrollable category chips — always visible with labels,
+// works the same on iPhone and desktop. No hidden hamburger menus.
+export default function Navigation({
+  activeCategory,
+  onCategoryChange,
   currentLang,
-  isMobileOpen 
 }) {
   const t = useTranslation(currentLang);
 
   const categories = [
-    { id: 'home', label: t.nav.home, icon: '🏠' },
-    { id: 'breaking', label: t.nav.breaking, icon: '🔴', badge: 'LIVE' },
-    { id: 'barcelona', label: t.nav.barcelona, icon: '🏙️' },
-    { id: 'catalonia', label: t.nav.catalonia, icon: '🟡' },
-    { id: 'spain', label: t.nav.spain, icon: '🇪🇸' },
-    { id: 'international', label: t.nav.international, icon: '🌍' },
-    { id: 'finance', label: t.nav.finance, icon: '📈' },
-    { id: 'technology', label: t.nav.technology, icon: '💻' },
-    { id: 'sports', label: t.nav.sports, icon: '⚽' },
-    { id: 'science', label: t.nav.science, icon: '🔬' },
-    { id: 'lifestyle', label: t.nav.lifestyle, icon: '✨' },
-    { id: 'opinion', label: t.nav.opinion, icon: '💬' },
+    { id: "home", label: t.nav.home, icon: "\ud83c\udfe0" },
+    { id: "top10", label: t.nav.top10, icon: "\ud83c\udfc6" },
+    { id: "briefing", label: t.nav.briefing, icon: "\ud83e\udd16" },
+    { id: "breaking", label: t.nav.breaking, icon: "\ud83d\udd34" },
+    { id: "barcelona", label: t.nav.barcelona, icon: "\ud83c\udfd9\ufe0f" },
+    { id: "catalonia", label: t.nav.catalonia, icon: "\ud83c\udfdb\ufe0f" },
+    { id: "spain", label: t.nav.spain, icon: "\ud83c\uddea\ud83c\uddf8" },
+    { id: "international", label: t.nav.international, icon: "\ud83c\udf0d" },
+    { id: "finance", label: t.nav.finance, icon: "\ud83d\udcc8" },
+    { id: "technology", label: t.nav.technology, icon: "\ud83d\udcbb" },
+    { id: "sports", label: t.nav.sports, icon: "\u26bd" },
+    { id: "science", label: t.nav.science, icon: "\ud83d\udd2c" },
+    { id: "lifestyle", label: t.nav.lifestyle, icon: "\u2728" },
   ];
 
   return (
-    <nav className={`
-      fixed md:relative md:block
-      top-0 left-0 right-0
-      md:top-auto md:left-auto md:right-auto
-      w-full md:w-auto
-      bg-white dark:bg-slate-900
-      border-b border-gray-200 dark:border-slate-700
-      overflow-x-auto
-      ${isMobileOpen ? 'flex flex-col' : 'hidden md:flex'}
-      z-30
-      md:z-auto
-      mt-32 md:mt-0
-      md:overflow-visible
-    `}>
-      <div className="flex md:flex-wrap items-center gap-1 md:gap-0 px-4 md:px-0 py-2 md:py-3 w-full">
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => onCategoryChange(category.id)}
-            className={`
-              flex items-center gap-2 px-3 md:px-4 py-2 md:py-3
-              text-sm font-medium whitespace-nowrap
-              border-b-2 transition-all
-              ${
-                activeCategory === category.id
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400'
-                  : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-              }
-            `}
-          >
-            <span>{category.icon}</span>
-            <span className="hidden sm:inline">{category.label}</span>
-            {category.badge && (
-              <span className="ml-1 px-2 py-0.5 bg-red-600 text-white text-xs font-bold rounded-full animate-pulse">
-                {category.badge}
-              </span>
-            )}
-          </button>
-        ))}
+    <nav className="sticky top-14 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-gray-200 dark:border-slate-700">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center gap-1.5 px-3 sm:px-6 lg:px-8 py-2 overflow-x-auto scrollbar-hide snap-x">
+          {categories.map((c) => (
+            <button
+              key={c.id}
+              onClick={() => onCategoryChange(c.id)}
+              aria-pressed={activeCategory === c.id}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold whitespace-nowrap snap-start transition-all min-h-[38px] ${
+                activeCategory === c.id
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700"
+              }`}
+            >
+              <span aria-hidden="true">{c.icon}</span>
+              <span>{c.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </nav>
   );

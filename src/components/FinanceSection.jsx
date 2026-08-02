@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown } from 'lucide-react';
-import { newsService } from '../services/newsService';
-import { useTranslation } from '../translations/i18n';
+import React, { useState, useEffect } from "react";
+import { TrendingUp, TrendingDown } from "lucide-react";
+import { newsService } from "../services/newsService";
+import { useTranslation } from "../translations/i18n";
 
 export default function FinanceSection({ currentLang }) {
   const t = useTranslation(currentLang);
@@ -21,8 +21,11 @@ export default function FinanceSection({ currentLang }) {
   if (loading) {
     return (
       <div className="animate-pulse space-y-4">
-        {[1, 2, 3, 4, 5, 6].map(i => (
-          <div key={i} className="h-20 bg-gray-200 dark:bg-slate-700 rounded-lg"></div>
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div
+            key={i}
+            className="h-20 bg-gray-200 dark:bg-slate-700 rounded-lg"
+          ></div>
         ))}
       </div>
     );
@@ -51,19 +54,26 @@ export default function FinanceSection({ currentLang }) {
 
               <div className="text-right">
                 <div className="text-lg font-bold text-gray-900 dark:text-white">
-                  {typeof item.price === 'number' ? item.price.toFixed(2) : item.price}
+                  {typeof item.price === "number"
+                    ? item.price.toFixed(2)
+                    : item.price}
                 </div>
-                <div className={`flex items-center justify-end gap-1 font-semibold ${
-                  item.change >= 0 
-                    ? 'text-green-600 dark:text-green-400' 
-                    : 'text-red-600 dark:text-red-400'
-                }`}>
+                <div
+                  className={`flex items-center justify-end gap-1 font-semibold ${
+                    item.change >= 0
+                      ? "text-green-600 dark:text-green-400"
+                      : "text-red-600 dark:text-red-400"
+                  }`}
+                >
                   {item.change >= 0 ? (
                     <TrendingUp size={16} />
                   ) : (
                     <TrendingDown size={16} />
                   )}
-                  <span>{item.change > 0 ? '+' : ''}{item.change}%</span>
+                  <span>
+                    {item.change > 0 ? "+" : ""}
+                    {item.change}%
+                  </span>
                 </div>
               </div>
             </div>
@@ -75,8 +85,8 @@ export default function FinanceSection({ currentLang }) {
                   key={i}
                   className={`flex-1 h-full rounded-t-sm ${
                     item.change >= 0
-                      ? 'bg-gradient-to-t from-green-500 to-green-400'
-                      : 'bg-gradient-to-t from-red-500 to-red-400'
+                      ? "bg-gradient-to-t from-green-500 to-green-400"
+                      : "bg-gradient-to-t from-red-500 to-red-400"
                   }`}
                   style={{
                     height: `${20 + Math.random() * 60}%`,
@@ -89,10 +99,10 @@ export default function FinanceSection({ currentLang }) {
         ))}
       </div>
 
-      {/* Finance news disclaimer */}
+      {/* Finance data disclaimer */}
       <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
         <p className="text-sm text-blue-900 dark:text-blue-200">
-          ℹ️ {t.finance.news}: Real-time market data integrates with NewsAPI, Yahoo Finance, and Alpha Vantage APIs. Prices are cached and may be 15-30 minutes delayed.
+          {"\u2139\ufe0f"} {t.finance.disclaimer}
         </p>
       </div>
     </div>
