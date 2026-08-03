@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Sun, Moon, X } from "lucide-react";
+import { Search, Sun, Moon, X, RefreshCw } from "lucide-react";
 import { useTranslation, pick } from "../translations/i18n";
 
 export default function Header({
@@ -12,6 +12,8 @@ export default function Header({
   searchActive,
   breakingArticle,
   onBreakingClick,
+  onRefresh,
+  lastUpdated,
 }) {
   const t = useTranslation(currentLang);
   const [searchQuery, setSearchQuery] = useState("");
@@ -121,6 +123,17 @@ export default function Header({
                 <Search size={20} />
               )}
             </button>
+
+            {/* Refresh */}
+            {onRefresh && (
+              <button
+                onClick={onRefresh}
+                aria-label="Refresh"
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-600 dark:text-gray-300"
+              >
+                <RefreshCw size={18} />
+              </button>
+            )}
 
             {/* Theme toggle */}
             <button

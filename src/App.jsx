@@ -127,6 +127,8 @@ export default function App() {
         searchActive={!!searchQuery}
         breakingArticle={featuredArticle}
         onBreakingClick={setSelectedArticle}
+        onRefresh={() => window.location.reload()}
+        lastUpdated={new Date()}
       />
 
       <Navigation

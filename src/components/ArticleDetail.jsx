@@ -191,7 +191,8 @@ export default function ArticleDetail({
                 <Clock size={16} className="text-purple-500 flex-shrink-0" />
                 <div className="min-w-0">
                   <p className="text-sm font-bold text-gray-900 dark:text-white leading-none">
-                    {article.readTime} min
+                    {Math.max(1, Math.ceil(content.split(/\s+/).length / 200))}{" "}
+                    min
                   </p>
                   <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">
                     {t.article.readTime}
@@ -227,8 +228,21 @@ export default function ArticleDetail({
             </div>
 
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-8">
-              {t.article.readMore}:{" "}
-              <span className="font-semibold">{article.source}</span>
+              {article.sourceUrl ? (
+                <a
+                  href={article.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                >
+                  {t.article.readMore}: {article.source} ↗
+                </a>
+              ) : (
+                <>
+                  {t.article.readMore}:{" "}
+                  <span className="font-semibold">{article.source}</span>
+                </>
+              )}
             </p>
 
             {/* ============ AI ANALYSIS ============ */}

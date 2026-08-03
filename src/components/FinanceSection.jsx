@@ -78,6 +78,25 @@ export default function FinanceSection({ currentLang }) {
               </div>
             </div>
 
+            {/* Source link */}
+            {item.source && (
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                  via {item.source}
+                </span>
+                {item.url && (
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] text-blue-500 dark:text-blue-400 hover:underline"
+                  >
+                    View ↗
+                  </a>
+                )}
+              </div>
+            )}
+
             {/* Mini chart placeholder */}
             <div className="mt-3 h-8 bg-gray-100 dark:bg-slate-700 rounded flex items-end gap-0.5 px-1">
               {[...Array(20)].map((_, i) => (
