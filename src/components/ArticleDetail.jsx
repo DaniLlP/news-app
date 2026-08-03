@@ -233,13 +233,13 @@ export default function ArticleDetail({
                   href={article.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 bg-gray-100 dark:bg-slate-800 rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold transition-colors"
                 >
-                  {t.article.readMore}: {article.source} ↗
+                  📰 {article.source} ↗
                 </a>
               ) : (
                 <>
-                  {t.article.readMore}:{" "}
+                  {t.article.source}:{" "}
                   <span className="font-semibold">{article.source}</span>
                 </>
               )}
